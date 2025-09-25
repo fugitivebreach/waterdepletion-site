@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Depletion Project</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loading-screen">
+        <div class="loading-container">
+            <div class="loading-logo">
+                <div class="water-drop-logo"></div>
+                <h1>AquaData</h1>
+            </div>
+            <div class="loading-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <div class="loading-text" id="loading-text">Initializing...</div>
+            </div>
+            <div class="loading-files" id="loading-files">
+                <!-- Dynamic loading files will appear here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Water Level Measurement -->
+    <div class="water-measurement">
+        <div class="measurement-lines">
+            <div class="measurement-line" data-level="100"><span>100"</span></div>
+            <div class="measurement-line" data-level="90"><span>90"</span></div>
+            <div class="measurement-line" data-level="80"><span>80"</span></div>
+            <div class="measurement-line" data-level="70"><span>70"</span></div>
+            <div class="measurement-line" data-level="60"><span>60"</span></div>
+            <div class="measurement-line" data-level="50"><span>50"</span></div>
+            <div class="measurement-line" data-level="40"><span>40"</span></div>
+            <div class="measurement-line" data-level="30"><span>30"</span></div>
+            <div class="measurement-line" data-level="20"><span>20"</span></div>
+            <div class="measurement-line" data-level="10"><span>10"</span></div>
+            <div class="measurement-line" data-level="0"><span>0"</span></div>
+        </div>
+        <div class="water-level" id="water-level"></div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content" id="main-content">
+        <div class="container">
+            <header class="topic-header">
+                <h1 id="topic-title" class="topic-title"></h1>
+                <p id="topic-description" class="topic-description"></p>
+            </header>
+            
+            <main class="grid-container" id="grid-container">
+                <!-- Grid items will be dynamically loaded here -->
+            </main>
+            
+            <footer class="citations-section" id="citations-section">
+                <div class="citations-separator"></div>
+                <h3 class="citations-title">Citations / References</h3>
+                <div class="citations-list" id="citations-list">
+                    <!-- Citations will be dynamically loaded here -->
+                </div>
+            </footer>
+        </div>
+    </div>
+    
+    <div class="cursor-animation" id="cursor-animation">
+        <div class="faucet"></div>
+        <div class="water-particles">
+            <div class="water-particle"></div>
+            <div class="water-particle"></div>
+            <div class="water-particle"></div>
+            <div class="water-particle"></div>
+        </div>
+        <div class="trashcan"></div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

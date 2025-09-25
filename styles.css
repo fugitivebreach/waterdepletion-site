@@ -1,0 +1,688 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #000000;
+    min-height: 100vh;
+    overflow-x: hidden;
+    cursor: none;
+    color: #ffffff;
+}
+
+/* Loading Screen */
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.loading-screen.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loading-container {
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+}
+
+.loading-logo {
+    margin-bottom: 3rem;
+}
+
+.water-drop-logo {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #00d4ff, #0099cc);
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    margin: 0 auto 1rem;
+    animation: dropPulse 2s ease-in-out infinite;
+}
+
+@keyframes dropPulse {
+    0%, 100% { transform: rotate(-45deg) scale(1); }
+    50% { transform: rotate(-45deg) scale(1.1); }
+}
+
+.loading-logo h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #00d4ff, #ffffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 0;
+}
+
+.loading-progress {
+    margin-bottom: 2rem;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #00d4ff, #0099cc);
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+.loading-text {
+    font-size: 1.1rem;
+    color: #cccccc;
+    font-weight: 400;
+}
+
+.loading-files {
+    max-height: 200px;
+    overflow-y: auto;
+    text-align: left;
+}
+
+.loading-file {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0;
+    font-size: 0.9rem;
+    color: #888;
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: slideIn 0.3s ease forwards;
+}
+
+.loading-file.success {
+    color: #00ff88;
+}
+
+.loading-file.error {
+    color: #ff4444;
+}
+
+.loading-file::before {
+    content: '▶';
+    margin-right: 0.5rem;
+    color: #00d4ff;
+}
+
+.loading-file.success::before {
+    content: '✓';
+    color: #00ff88;
+}
+
+.loading-file.error::before {
+    content: '✗';
+    color: #ff4444;
+}
+
+@keyframes slideIn {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Water Measurement System */
+.water-measurement {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 80px;
+    height: 100vh;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.measurement-lines {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.measurement-line {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: rgba(0, 212, 255, 0.3);
+    display: flex;
+    align-items: center;
+}
+
+.measurement-line[data-level="100"] { top: 5%; }
+.measurement-line[data-level="90"] { top: 14%; }
+.measurement-line[data-level="80"] { top: 23%; }
+.measurement-line[data-level="70"] { top: 32%; }
+.measurement-line[data-level="60"] { top: 41%; }
+.measurement-line[data-level="50"] { top: 50%; }
+.measurement-line[data-level="40"] { top: 59%; }
+.measurement-line[data-level="30"] { top: 68%; }
+.measurement-line[data-level="20"] { top: 77%; }
+.measurement-line[data-level="10"] { top: 86%; }
+.measurement-line[data-level="0"] { top: 95%; }
+
+.measurement-line span {
+    font-size: 0.8rem;
+    color: rgba(0, 212, 255, 0.7);
+    margin-left: 10px;
+    font-weight: 500;
+}
+
+.water-level {
+    position: absolute;
+    left: 0;
+    width: 100vw;
+    background: linear-gradient(180deg, 
+        rgba(0, 212, 255, 0.1) 0%,
+        rgba(0, 153, 204, 0.2) 50%,
+        rgba(0, 100, 150, 0.3) 100%);
+    animation: waterDrain 30s linear infinite;
+    border-top: 2px solid rgba(0, 212, 255, 0.5);
+    box-shadow: 0 -10px 30px rgba(0, 212, 255, 0.2);
+}
+
+@keyframes waterDrain {
+    0% { 
+        top: 5%; 
+        height: 95%; 
+    }
+    100% { 
+        top: 95%; 
+        height: 5%; 
+    }
+}
+
+/* Custom Cursor Animation */
+.cursor-animation {
+    position: fixed;
+    pointer-events: none;
+    z-index: 1000;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 80px;
+}
+
+.faucet {
+    position: absolute;
+    top: -30px;
+    left: 10px;
+    width: 25px;
+    height: 15px;
+    background: #888;
+    border-radius: 8px 8px 0 0;
+    border: 2px solid #666;
+}
+
+.faucet::before {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 8px;
+    background: #666;
+    border-radius: 0 0 50% 50%;
+}
+
+.water-particles {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 40px;
+}
+
+.water-particle {
+    position: absolute;
+    width: 3px;
+    height: 6px;
+    background: #00d4ff;
+    border-radius: 50%;
+    animation: waterFlow 0.8s linear infinite;
+}
+
+.water-particle:nth-child(1) { animation-delay: 0s; left: -1px; }
+.water-particle:nth-child(2) { animation-delay: 0.2s; left: 1px; }
+.water-particle:nth-child(3) { animation-delay: 0.4s; left: 0px; }
+.water-particle:nth-child(4) { animation-delay: 0.6s; left: -1px; }
+
+@keyframes waterFlow {
+    0% { 
+        top: 0px; 
+        opacity: 1; 
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: translateY(20px) scale(0.8);
+    }
+    100% { 
+        top: 40px; 
+        opacity: 0; 
+        transform: translateY(40px) scale(0.5);
+    }
+}
+
+.trashcan {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 22px;
+    background: #555;
+    border-radius: 0 0 4px 4px;
+    border: 2px solid #333;
+}
+
+.trashcan::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -3px;
+    width: 26px;
+    height: 4px;
+    background: #555;
+    border-radius: 2px;
+    border: 1px solid #333;
+}
+
+.trashcan::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 12px;
+    background: #333;
+    border-radius: 1px;
+}
+
+/* Main Content */
+.main-content {
+    opacity: 0;
+    transition: opacity 0.8s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.main-content.visible {
+    opacity: 1;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    padding-left: 100px; /* Account for measurement lines */
+    position: relative;
+    z-index: 1;
+}
+
+/* Topic Header */
+.topic-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 3rem 2rem;
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+.topic-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+    animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+.topic-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, #00d4ff, #ffffff, #00d4ff);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 4s ease-in-out infinite;
+}
+
+.topic-description {
+    font-size: 1.3rem;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.7;
+    max-width: 800px;
+    margin: 0 auto;
+    font-weight: 400;
+}
+
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+/* Grid Container */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+    justify-items: center;
+}
+
+/* Single item centering */
+.grid-container.single-item {
+    grid-template-columns: 1fr;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Grid Parts */
+.grid-part {
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 2.5rem;
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.grid-part::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.grid-part:hover {
+    transform: translateY(-15px) scale(1.02);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+    border-color: rgba(0, 212, 255, 0.4);
+}
+
+.grid-part:hover::before {
+    opacity: 1;
+}
+
+.grid-part-title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #ffffff;
+}
+
+.grid-part-title.led-text {
+    animation: ledColorCycle 4s linear infinite;
+}
+
+@keyframes ledColorCycle {
+    0% { color: #003366; }      /* Dark blue */
+    33.33% { color: #87ceeb; }  /* Light blue */
+    66.66% { color: #00bfff; }  /* Electric blue */
+    100% { color: #003366; }    /* Back to dark blue */
+}
+
+.grid-part-description {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 2rem;
+    line-height: 1.7;
+    text-align: center;
+    font-weight: 400;
+}
+
+.grid-part-bulletin {
+    margin-bottom: 2rem;
+}
+
+.grid-part-bulletin ul {
+    list-style: none;
+    padding: 0;
+}
+
+.grid-part-bulletin li {
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 0.8rem;
+    padding-left: 1.5rem;
+    position: relative;
+    line-height: 1.6;
+    font-size: 0.95rem;
+    transition: color 0.3s ease;
+}
+
+.grid-part-bulletin li:hover {
+    color: #ffffff;
+}
+
+.grid-part-bulletin li::before {
+    content: '▶';
+    position: absolute;
+    left: 0;
+    color: #00d4ff;
+    font-weight: bold;
+    font-size: 0.8rem;
+    transition: color 0.3s ease;
+}
+
+.grid-part-bulletin li:hover::before {
+    color: #ffffff;
+}
+
+.grid-part-image {
+    width: 100%;
+    max-width: 320px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 16px;
+    margin: 0 auto;
+    display: block;
+    border: 1px solid rgba(0, 212, 255, 0.3);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.grid-part-image:hover {
+    transform: scale(1.05) translateY(-5px);
+    border-color: rgba(0, 212, 255, 0.6);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .container {
+        padding-left: 80px;
+    }
+    
+    .water-measurement {
+        width: 60px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+        padding-left: 1rem;
+    }
+    
+    .water-measurement {
+        display: none;
+    }
+    
+    .topic-title {
+        font-size: 2.5rem;
+    }
+    
+    .topic-description {
+        font-size: 1.1rem;
+    }
+    
+    .grid-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .grid-part {
+        padding: 2rem;
+        max-width: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .topic-header {
+        padding: 2rem 1.5rem;
+        margin-bottom: 2rem;
+    }
+    
+    .topic-title {
+        font-size: 2rem;
+    }
+    
+    .topic-description {
+        font-size: 1rem;
+    }
+    
+    .grid-part {
+        padding: 1.5rem;
+        border-radius: 20px;
+    }
+    
+    .grid-part-title {
+        font-size: 1.4rem;
+    }
+    
+    .citations-section {
+        margin-top: 2rem;
+    }
+    
+    .citations-title {
+        font-size: 1.5rem;
+    }
+    
+    .citation-item {
+        padding: 0.8rem 1rem;
+        font-size: 0.85rem;
+    }
+}
+
+/* Citations Section */
+.citations-section {
+    margin-top: 4rem;
+    padding-top: 2rem;
+}
+
+.citations-separator {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.5), transparent);
+    margin-bottom: 2rem;
+}
+
+.citations-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.citations-list {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.citation-item {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    padding: 1rem 1.5rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    border-left: 3px solid rgba(0, 212, 255, 0.4);
+    transition: all 0.3s ease;
+}
+
+.citation-item:hover {
+    background: rgba(0, 0, 0, 0.5);
+    border-left-color: rgba(0, 212, 255, 0.7);
+    color: rgba(255, 255, 255, 0.95);
+}
+
+.citation-item:last-child {
+    margin-bottom: 0;
+}
+
+/* Loading Animation */
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    color: #ffffff;
+    font-size: 1.2rem;
+}
+
+.loading::after {
+    content: '';
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ffffff;
+    border-top: 2px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-left: 10px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
