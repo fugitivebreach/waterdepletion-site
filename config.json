@@ -1,26 +1,60 @@
 {
-  "TopicTitle": "Water Depletion #SAVETHEWATER",
+  "TopicTitle": "Water Depletion",
   "TopicDescription": "Understanding the global water crisis and its impact on our planet's future sustainability.",
-  "ledTextColors": ["#00bfff", "#1e90ff", "#4169e1", "#0000ff", "#8a2be2", "#9400d3"],
   "GridParts": [
     {
+      "GridPartTitle": "What is Water Depletion?",
+      "TextColor": "#00bfff",
+      "GridPartDescription": "Water depletion is the excesive use of natural water sources which has a aftereffect which is shortages of water, or the depletion of water.",
+      "GridPartBulletin": [],
+      "GridPartImageLink": null
+    },
+    {
       "GridPartTitle": "Assertion",
-      "LedText": true,
-      "TextColor": null,
-      "GridPartDescription": "description placeholder",
+      "TextColor": "#00bfff",
+      "GridPartDescription": "Water depletion is a global issue that can lead to droughts, wildfires, and other natural disasters. And most importantly, water is a basic human need for survival.",
       "GridPartBulletin": [
-        "bulletin placeholder",
-        "bulletin placeholder",
-        "bulletin placeholder"
+        "Groundwater depletion is a serious issue for water availability in Illinois suburbs.",
+        "Huge losses in groundwater sources can collapse ecosystems and natural habitats.",
+        "Many places may have fewer accessible or reliable water supplies in the near future.",
+        "Water depletion can also cause economical issues because of agricultural water costs for farmers causing higher food prices."
       ],
-      "GridPartImageLink": "https://via.placeholder.com/300x200/4169e1/ffffff?text=Water+Stats"
+      "GridPartImageLink": null
+    },
+    {
+      "GridPartTitle": "Evidence",
+      "TextColor": "#00bfff",
+      "GridPartDescription": "There is already quite a bit of evidence of water depletion in Illinois, and it is expected to continue in the near future.",
+      "GridPartBulletin": [
+        "According to the Illinois State Climatologist, droughts have been occuring more often in Illinois.",
+        "There is always a increased risk in wildfires, ecosystem collapses, natural disasters, or agricultural issues.",
+        "Some communtiies have already been affected by water depletion and now have to seek alternative sources of water."
+      ],
+      "GridPartImageLink": null
+    },
+    {
+      "GridPartTitle": "How can you make a impact?",
+      "TextColor": "#00bfff",
+      "GridPartDescription": "There are many ways to make a impact on water depletion.",
+      "GridPartBulletin": [
+        "Use less water indoors as loose faucets and leaks can waste a lot of water.",
+        "Use less water outdoors aswell, as rainwater can be harvested and used for the same tasks freshwater can be used for.",
+        "Use sustainable products labled with WaterSense or other labels that explicitly state they are water efficient."
+      ],
+      "GridPartImageLink": null
+    },
+    {
+      "GridPartTitle": "Chart",
+      "TextColor": "#00bfff",
+      "GridPartDescription": "Chart with data on water depletion.",
+      "GridPartBulletin": [],
+      "GridPartImageLink": "https://ers.usda.gov/sites/default/files/_laserfiche/Charts/106367/Groundwater-top-concerns.png"
     }
   ],
   "Citations": [
-    "citation placeholder",
-    "citation placeholder",
-    "citation placeholder",
-    "citation placeholder",
-    "citation placeholder"
+    "Illinois State Water Survey: https://www.isws.illinois.edu/pubdoc/MP/ISWSMP-208.pdf",
+    "Illinois Experts: https://experts.illinois.edu/en/publications/groundwater-depletion-along-a-regional-fault-zone-in-northern-ill",
+    "ERS USDA (Chart): https://ers.usda.gov/sites/default/files/_laserfiche/Charts/106367/Groundwater-top-concerns.png",
+    "Illinois State Climatologist: https://stateclimatologist.web.illinois.edu/2025/09/11/drought-is-intensifying-in-illinois/"
   ]
 }

@@ -135,14 +135,8 @@ function createGridPart(part, index) {
     title.className = 'grid-part-title';
     title.textContent = part.GridPartTitle;
     
-    // Apply LED text or custom color
-    if (part.LedText) {
-        title.classList.add('led-text');
-        // Set up dynamic LED colors if available
-        if (config.ledTextColors && config.ledTextColors.length > 0) {
-            setupDynamicLedColors(title, config.ledTextColors);
-        }
-    } else if (part.TextColor) {
+    // Set text color
+    if (part.TextColor) {
         title.style.color = part.TextColor;
     } else {
         title.style.color = '#ffffff';
@@ -173,7 +167,7 @@ function createGridPart(part, index) {
     
     // Create image if provided
     let imageElement = null;
-    if (part.GridPartImageLink) {
+    if (part.GridPartImageLink && part.GridPartImageLink !== null && part.GridPartImageLink !== '' && part.GridPartImageLink.trim() !== '') {
         imageElement = document.createElement('img');
         imageElement.className = 'grid-part-image';
         imageElement.src = part.GridPartImageLink;
@@ -184,6 +178,9 @@ function createGridPart(part, index) {
         imageElement.onerror = function() {
             this.style.display = 'none';
         };
+    } else {
+        // Add class for no-image styling
+        gridPart.classList.add('no-image');
     }
     
     // Assemble the grid part
@@ -198,27 +195,6 @@ function createGridPart(part, index) {
     return gridPart;
 }
 
-// Setup dynamic LED colors
-function setupDynamicLedColors(element, colors) {
-    if (!colors || colors.length === 0) return;
-    
-    let colorIndex = 0;
-    const duration = 4000; // 4 seconds total cycle
-    const intervalTime = duration / colors.length;
-    
-    function updateColor() {
-        const color = colors[colorIndex];
-        element.style.color = color;
-        element.style.textShadow = `0 0 10px ${color}, 0 0 20px ${color}`;
-        colorIndex = (colorIndex + 1) % colors.length;
-    }
-    
-    // Set initial color
-    updateColor();
-    
-    // Start the color cycling
-    setInterval(updateColor, intervalTime);
-}
 
 // Show error message
 function showError(message) {
