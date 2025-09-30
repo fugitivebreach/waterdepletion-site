@@ -27,60 +27,39 @@ function initializeCursor() {
     });
 }
 
-// Loading sequence with fake dependencies
+// Loading sequence with Illinois water depletion facts
 async function startLoadingSequence() {
-    const loadingFiles = [
-        { name: 'config.json', delay: 300 },
-        { name: 'water-data.db', delay: 500 },
-        { name: 'analytics.js', delay: 200 },
-        { name: 'chart-renderer.js', delay: 400 },
-        { name: 'theme-engine.css', delay: 300 },
-        { name: 'animation-core.js', delay: 600 },
-        { name: 'measurement-system.js', delay: 350 },
-        { name: 'led-controller.js', delay: 250 },
-        { name: 'cursor-effects.js', delay: 200 },
-        { name: 'grid-layout.css', delay: 400 },
-        { name: 'responsive-handler.js', delay: 300 },
-        { name: 'water-simulation.wasm', delay: 800 }
+    const illinoisFacts = [
+        "Illinois uses over 13 billion gallons of water daily from Lake Michigan and groundwater sources.",
+        "The Chicago River was reversed in 1900 to prevent water contamination, a major engineering feat.",
+        "Illinois has over 87,000 miles of rivers and streams, but many face pollution challenges.",
+        "Agricultural irrigation in Illinois consumes about 40% of the state's freshwater resources.",
+        "Lake Michigan provides drinking water to over 7 million Illinois residents.",
+        "Illinois groundwater levels have dropped significantly due to over-pumping in agricultural areas.",
+        "The Illinois River has lost 90% of its original wetlands, affecting water quality and wildlife.",
+        "Climate change is causing more frequent droughts and floods in Illinois, stressing water systems."
     ];
 
-    const progressFill = document.getElementById('progress-fill');
-    const loadingText = document.getElementById('loading-text');
-    const loadingFilesContainer = document.getElementById('loading-files');
+    const factText = document.getElementById('fact-text');
+    let currentFactIndex = 0;
 
-    let currentProgress = 0;
-    const totalFiles = loadingFiles.length;
-
-    for (let i = 0; i < loadingFiles.length; i++) {
-        const file = loadingFiles[i];
-        
-        // Update loading text
-        loadingText.textContent = `Loading ${file.name}...`;
-        
-        // Add file to loading list
-        const fileElement = document.createElement('div');
-        fileElement.className = 'loading-file';
-        fileElement.textContent = file.name;
-        fileElement.style.animationDelay = `${i * 0.1}s`;
-        loadingFilesContainer.appendChild(fileElement);
-
-        // Simulate loading delay
-        await new Promise(resolve => setTimeout(resolve, file.delay));
-
-        // Mark file as loaded
-        fileElement.classList.add('success');
-        
-        // Update progress
-        currentProgress = ((i + 1) / totalFiles) * 100;
-        progressFill.style.width = `${currentProgress}%`;
+    // Function to cycle through facts
+    function showNextFact() {
+        factText.textContent = illinoisFacts[currentFactIndex];
+        currentFactIndex = (currentFactIndex + 1) % illinoisFacts.length;
     }
 
-    // Final loading steps
-    loadingText.textContent = 'Initializing water simulation...';
-    await new Promise(resolve => setTimeout(resolve, 500));
-    
-    loadingText.textContent = 'Starting AquaData...';
-    await new Promise(resolve => setTimeout(resolve, 300));
+    // Show first fact immediately
+    showNextFact();
+
+    // Change facts every 3 seconds
+    const factInterval = setInterval(showNextFact, 3000);
+
+    // Load for 9 seconds (3 facts)
+    await new Promise(resolve => setTimeout(resolve, 9000));
+
+    // Clear the interval
+    clearInterval(factInterval);
 
     // Load actual config and start app
     await loadConfig();
